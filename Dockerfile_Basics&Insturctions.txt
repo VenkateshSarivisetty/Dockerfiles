@@ -1,0 +1,51 @@
+-> Docker can build the images automaticall by reading the instruction provided under Dockerfile
+-> A dockerfile is a text file that contains all the commands a user could call on the command line to assembile an image.
+-> A docker image conists of read-only layer each of which represents a dockerfile instruction.
+-> Command to build image from dockerfile
+   
+   docker build -t <path of the dockerfile>
+
+Dockerfile Instructions:-
+
+-> Dockerfile instructions are used to create the docker images.
+
+-> FROM: The FROM instruction initilizes a new build stage and sets the BaseImage for subsequent instructions.
+-> A valid Dockerfile must start with a FROM instruction.
+-> Base Image can be any valid image
+-> Format : FROM <IMAGE>:tag
+
+-> LABEL: LABEL added to image to organize images by project,record licensing information.
+-> For each label, add a line beginning with LABEL and with one or more key-value pairs
+-> LABEL com.example.version="0.0.1-beta"
+-> LABEL vendor1="ACME Incorporated"
+
+-> RUN: RUN instruction will execute any commands in a new layer on top of the current image and commit the results.
+-> The resulting committed image will be used for the next step in the dockerfile.
+-> FROM ubuntu:14.04
+-> RUN apt-get update
+-> RUN apt-get install -y curl
+
+-> CMD: CMD insturction should be used to run the software contained by your image, alone with any arguments.
+-> CMD ["executable","param1","param2"]
+-> There cab only be one CMD instruction in a Dockerfile. If you list more than one CMD then only the last CMD will take effect.
+-> The main purpose of a CMD is to provide defaults for an executing container.
+
+-> EXPOSE: EXPOSE instruction indicates the ports on which container listens for connections.
+-> EXPOSE <port>
+
+-> ENV : ENV instructions sets the environment variable <key> to the value <value>
+-> To make the new software easier to run, you can use ENV to update the PATH environment varible for the new software your container
+   installs.
+
+-> ADD: ADD instruction copies new files,directories or remote file URL's from <src> and adds them to the filesystem of the image at 
+   the path <dest>.
+-> ADD home* /mydir/ # add all the files starting with home
+
+-> VOLUME : VOLUME instruction should be used to expose any database storage area, configuration storage, or files/folders
+   created by your docker container.
+
+-> WORKDIR : WORKDIR instruction sets the working for any RUN,CMD,ADD instruction that follow it in the dockerfile.
+
+
+
+

@@ -1,0 +1,64 @@
+-> Docker Image is build from Docker file.
+-> Docker build Syntax: 
+   docker build -t ImageName:TagName dir
+-> -t - to mention a tag to your image
+-> ImageName - This is the name you want to give to your Image.
+-> TagName -This is the tag you want to give to your Image.
+-> Dir - The directory where the Docker File is preset.
+
+-> Create Custom Nginx Image and Execute it.
+-> Tools we used to Edit Docker File: Visual Studio
+
+####Sample Dockerfile#############
+   
+FROM Ubuntu:latest
+
+LABEL version="0.0.1"
+LABEL maintainer="Venkatesh"
+
+RUN apt-get update
+RUN apt-get install nginx -y
+
+EXPOSE 90
+CMD [ "nginx","-g","daemon off;"]
+
+####Sample Dockerfile#############
+
+docker image build -t customenginx:0.0.1 /root/ # Execute this command to build customimage on top of ubuntu.
+docker run -d -p 32767:90 customnginx:0.0.1 # To run the image and see the container.
+
+####Sample Dockerfile#############
+
+-> Did some changes to the Docker file
+   
+FROM Ubuntu:latest
+
+LABEL version="0.0.1"
+LABEL maintainer="Venkatesh"
+
+RUN apt-get update
+RUN apt-get install nginx -y
+
+EXPOSE 80 #Port number changed.
+CMD [ "nginx","-g","daemon off;"]
+
+####Sample Dockerfile#############
+
+docker build -t customenginx:0.0.2 /root/ # It will finish very soon becoz it will take whatever the changes performed and 
+                                            it will use the own cache and rebuild the existing layer.
+docker run -d -p 8081:80 customenginx:0.0.2 # Container will run.
+
+<machineIP:portnumber> - Will show Nginx page from webpage.
+
+#create a python file under root directory before creating a dockerfile
+FROM python:latest 
+# Default Label values
+LABEL version="0.0.1" 
+LABEL maintainer="venkatesh"
+# Adding the python program to root directory of container
+ADD python.py /
+# running the pythong program using command
+CMD [ "python","./python.py" ]
+
+
+  

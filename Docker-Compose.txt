@@ -1,0 +1,27 @@
+Docker-Compose : Docker Compose is used to run mulitple containers as a single service. Compose provide
+relationsship between mulitple containers
+Example:- User can start MySql and Tomcat Container with one YAML file without starting each seperately.
+Docker Compose as Three step process:-
+Define your app's environment with a dockerfile so it can be reproduces anywhere.
+Define the services that make up your app in docker-compose.yml so they can be run together in an isolated environment.
+Run docker-compose up and compose starts and runs your entire app.
+Install Docker compose: Its three step process,
+Download the necessary files from github using the following command -
+Sudo curl -L "http://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname-s)-$(uname-m)"
+-o /usr/local/bin/docker-compose
+Apply executable permissions to the binary 
+sudo chmod +x /usr/local/bin/docker-compose
+verify syntax
+docker-compose --version
+
+Docker Compose : YAML is formatted file in docker compose which describe the solution for:
+-> containers
+-> Networks
+-> Volumes
+
+Docker Compose YML file:
+-> YAML file can be versioned.
+-> Version statement should be the Firstline of file
+-> YML can be used with docker-compose command
+-> Docker-compose.yml if default name of YML file
+-> Custom name can be used by command docker-compose -f docker-compose -f xxx.yml

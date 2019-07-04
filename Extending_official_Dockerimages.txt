@@ -1,0 +1,23 @@
+-> Extend Docker official Nginx image
+-> Apply customisation on Official Nginx Image.
+
+index.html from source to destination(WORKDIR)
+<h1> Hi, this is my nginx program <h1>
+
+FROM nginx:latest
+
+LABEL version="0.0.1"
+LABEL maintainer="venkatesh"
+
+WORKDIR /usr/share/nginx/html
+
+COPY index.html index.html
+
+docker build -t nginx-custome:0.0.1 /root/
+docker run -p 8080:80 nginx-custom:0.0.1 # in attached mode.
+
+<machineIP:8080> # Nginx will show the data which is inside the index.html 
+
+
+
+

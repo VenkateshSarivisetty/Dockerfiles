@@ -1,0 +1,90 @@
+-> Container Data Management
+-> Persistent Data
+-> Data Volumes
+-> Bind Mount points in Container
+
+-> Container Persistent Data Problem :- 
+-> Containers are immutable: Once deploy never change, only re-deploy.
+-> Config change or version upgrade need re-deploy.
+-> By default all files created inside a Container are stored on a writable Container layer.
+-> The Data doesnt persist when that container no longer exists, and it can be difficult to get the data out of
+the container if another process needs it.
+
+-> Docker has two options for container to store files in the host machine, so that files are persisted even after
+the container stops.
+-> Volumes
+-> Bind Mounts
+
+Persistent Data Problem : Volumes
+-> Volumes are stored in a part of the host filesystem which is managed by docker.
+-> Volumes are created and managed by Containers
+-> Volumes can be created by volume command in dockerfile.
+-> when you create a volume, it is stored within a directory on the docker host machine
+-> Volumes can not be removed when user destroy the container.
+
+Example:- 
+-> Pull Mysql Image
+docker pull Mysql
+docker inspect Mysql # To see the volumes details
+docker run -d --name mysqldb -e Mysql_allow_empty_password=TRUE mysql
+docker inspect mysqldb # To see the Mounts source and destination volumes
+docker volume ls # To see how many volumes are avilable.
+docker run -d --name mysqldb2 -e Mysql_allow_empty_password=TRUE mysql
+docker volume ls # Two volumes will be avilable now
+docker stop mysqldb2 # Containers will get stop
+docker volume ls # Volumes will be avilable for both containers
+docker volume inspect <volume id>
+docker run -d --name mysqldb3 -e Mysql_allow_empty_password=TRUE --mount source=mysql-db,destination=/var/lib/mysql mysql
+docker volume ls # A new custom volume created
+docker stop <container-id>
+docker volume ls # still it shows the mysql-db
+docker run -d --name mysqldb4 -e Mysql_allow_empty_password=TRUE --mount source=mysql-db,destination=/var/lib/mysql mysql
+# Number of containers using same volumes
+
+Persistent Data:Bind Mounts
+
+-> Bind Mounts : Bind Mounts means a file or directoryon the host machine in mounted into a container
+-> Mapping of Host files into a container files.
+-> Bind Mounts may be stored anywhere on the host system.
+-> Non-Docker processes on the Docker host or a Docker container can modify them at any time.
+-> Bind Monunt cant be used in dockerfile
+-> Good use case of Bind Mounts
+-> Sharing configuration files from the host machine to containers
+-> sharing source code or build artifacts between a devolopment environment on the docker host and a container.
+
+
+-> Start nginx container with bind mount
+-> Run nginx
+-> docker run -d --name nginx --mount type=bind,source=$(pwd),target=/app nginx 
+
+mkdir dockerbind
+docker run -d --name nginxbind --mount type=bind,source=$(pwd),target=/app nginx # running nginx with bind Mounts
+docker exec -it nginxbind bash
+cd app
+-> Open another terminal and login to host machine
+/root/nginxbind
+-> Create test file
+-> Test file will be avilable in container.
+
+Assignment on Docker volumes
+docker run --name=test-mysql --env="MYSQL_ROOT_PASSWORD=mypassword" mysql:8.0
+docker run -name=test-mysql -e="MYSQL_ROOT_PASSWORD=mypassword" --mount source=mysql-db,target=/var/lib/mysql mysql
+
+#insert values into Mysql DB
+mysql -u root -p mypassword -h <machine IP> -P 3306
+apt-get install mysql-client -y
+mysql -u root -p mypassword -h <machine IP> -P 3306
+mysql> CREATE database testdb;
+     > SHOW database;
+     > use testdb;
+     > CREATE TABLE Person (
+         PersonID int,
+         Name varchar(256)
+     );
+     > SHOW tables
+
+
+
+
+
+
