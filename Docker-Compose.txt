@@ -25,3 +25,22 @@ Docker Compose YML file:
 -> YML can be used with docker-compose command
 -> Docker-compose.yml if default name of YML file
 -> Custom name can be used by command docker-compose -f docker-compose -f xxx.yml
+
+Version:3 # Specifies the compose file system version
+services: service is the name for a "Container in production"
+servicename: #containers service name
+image: #optional,specify if build specific
+command: #optional, relmand CMD specified in image
+environment: #optional, similar  to -e in docker run command
+Volumes: #optional, similar to --mount in docker run
+servicename2: 
+
+Volumes: #optional, mounts a linked path on the host machine that containers
+Networks: #optional, same as docker network.
+
+
+Docker Compose: Starting MySql  and wordpress containers.
+We will start  with docker compose file
+prepare docker-compose.yml file
+save file and run via command 
+docker-compose up -d
