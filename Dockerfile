@@ -1,24 +1,29 @@
-#Ubuntu with nginx 
-#FROM Ubuntu:latest
+# Ubuntu with nginx 
+FROM Ubuntu:latest
 
-#LABEL version="0.0.1"
-#LABEL maintainer="Venkatesh"
+LABEL version="0.0.1"
+LABEL maintainer="Venkatesh"
 
-#RUN apt-get update && apt-get upgrade -y
-#RUN apt-get install nginx -y
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install nginx -y
 
-#EXPOSE 90
-#CMD [ "nginx","-g","daemon off;"]
+EXPOSE 90
+CMD [ "nginx","-g","daemon off;"]
 
-#nginx by copying the a single file
-#FROM nginx:latest
+# nginx by copying the a single file
+FROM nginx:latest
 
-#LABEL version="0.0.1"
-#LABEL maintainer="venkatesh"
+LABEL version="0.0.1"
+LABEL maintainer="venkatesh"
 
-#WORKDIR /usr/share/nginx/html
+WORKDIR /usr/share/nginx/ # wHERE YOU WANT TO START THE FIRST command
 
-#COPY index.html index.html
+VOLUME [ "/data" ]
+
+COPY addressbook.war addressbook.war
+EXPOSE 32766
+
+ENTRYPOINT [ "nginx","-g","daemon off;"]
 
 #Assignment of dockerfile
 #create a python file under root directory before creating a dockerfile

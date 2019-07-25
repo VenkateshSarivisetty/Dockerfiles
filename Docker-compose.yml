@@ -3,7 +3,7 @@ services:
   db:
     image: mysql:5.7
     volumes:
-      - db_data/var/lib/mysql
+      - db_data:/var/lib/mysql
     restart: always #restart my container whenever my host machine restarts.
     environment: 
       MYSQL_ROOT_PASSWORD: mypassword 
@@ -12,8 +12,8 @@ services:
       MYSQL_PASSWORD: wordpress
 
   wordpress:
-    depends_on: 
-      -db
+    depends-on: 
+      - db
     image: wordpress:latest
     ports: 
       -"8080:80"
@@ -24,5 +24,6 @@ services:
       WORDPRESS_DB_PASSWORD : wordpress
 
 volumes: 
-  - db_data:
+      - db_data:
+      
 

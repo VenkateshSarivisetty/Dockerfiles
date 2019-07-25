@@ -1,0 +1,25 @@
+Assignment to Deploy Multi Node Serivce via Docker Swarm
+Docker's distributed Voting app
+Servers architecture
+
+- > Service Parts:
+- > This is 5 service combination app
+- > Vote: Front-end that enables a user to choose between a cat and dog
+
+- > redis : database where votes are stored
+
+- > worker : service that get votest from redis and store the results in postgres database
+
+- > db : the postgres database in which votes results are stored
+
+- > result : front-end displaying the results of the votes
+
+- > This is combination of serveral docker and compose file Code can view at below location:
+
+https://github.com/dockersamples/example-voting-app 
+
+- > App is designed by Docker community and avilable on Docker Hub for public use.
+
+- > This service need 1 Mount Volume , 2 Network and 2 Stack Services.
+
+- > Two Overlay network, you can call front_end_ntw and back_end_ntw is needed.
